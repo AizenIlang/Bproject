@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="onEdit()">
+  <h1>{{data.firstName}} {{data.lastName}}</h1>
+  <mat-card [style.overflow]="'auto'" [style.height.px]="'auto'">
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" [formControl]="firstNameControl" placeholder="First Name">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" [formControl]="lastNameControl" placeholder="Last Name">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>Age</mat-label>
+      <input matInput type="text" [formControl]="ageControl" placeholder="Age">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>Parents Name</mat-label>
+      <input matInput type="text" [formControl]="parentsNameControl" placeholder="Parents Name">
+
+    </mat-form-field>
+
+
+
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="halfwidth">Update</button>
+    <button mat-flat-button mat-dialog-close class="halfwidth">Cancel</button>
+
+  </mat-card>
+</form>

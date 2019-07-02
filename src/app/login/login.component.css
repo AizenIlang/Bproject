@@ -1,0 +1,16 @@
+.loginCard{
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    margin-top: 30px;
+}
+
+.fullwidth{
+    width:100%;
+    height: 50px;
+}
+
+.logininput{
+    width:100%;
+}

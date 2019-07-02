@@ -1,0 +1,112 @@
+
+  <mat-toolbar class="example-header" color="primary">
+    <mat-toolbar-row>
+      <ng-container *ngIf="userService.isLoggedIn">
+        <button mat-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </ng-container>
+
+      <span>BMI Check</span>
+      <span class="example-spacer"></span>
+      <ng-container *ngIf="userService.isLoggedIn">
+          {{userService.theEmail}}
+      </ng-container>
+      
+      <!-- <button mat-button (click)="signOut()">
+        <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">more_vert</mat-icon>
+      </button> -->
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <mat-sidenav-container class="example-container" >
+      
+      <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="example-sidenav" [fixedInViewport]="options.value.fixed"
+        [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
+        <mat-nav-list>
+          <mat-list-item class="example-list-item">
+              
+            <a matLine routerLink="patient" class="example-list-item" >Patients</a>
+          
+            <button mat-icon-button >
+              <mat-icon>face</mat-icon>
+            </button>
+          </mat-list-item>
+
+          <mat-list-item class="example-list-item">
+              
+              <a matLine routerLink="event" class="example-list-item">Events</a>
+            
+              <button mat-icon-button >
+                <mat-icon>insert_invitation</mat-icon>
+              </button>
+            </mat-list-item>
+
+            <mat-list-item class="example-list-item">
+              
+                <a matLine routerLink="patient" class="example-list-item">Tips Post</a>
+              
+                <button mat-icon-button >
+                  <mat-icon>web</mat-icon>
+                </button>
+              </mat-list-item>
+
+              <mat-list-item class="example-list-item">
+              
+                  <a matLine routerLink="patient" class="example-list-item">Appointments</a>
+                
+                  <button mat-icon-button >
+                    <mat-icon>assignment_ind</mat-icon>
+                  </button>
+                </mat-list-item>
+
+          <mat-list-item class="example-list-item">
+              
+              <a matLine routerLink="patient" class="example-list-item">Reports</a>
+            
+              <button mat-icon-button >
+                <mat-icon>assignment</mat-icon>
+              </button>
+            </mat-list-item>
+
+            <mat-list-item class="example-list-item">
+              
+                <a matLine routerLink="patient" class="example-list-item">Analytics</a>
+              
+                <button mat-icon-button >
+                  <mat-icon>equalizer</mat-icon>
+                </button>
+              </mat-list-item>
+
+            <mat-list-item class="example-list-item">
+              
+                <a matLine (click)="signOut()" class="example-list-item">Sign out</a>
+              
+                <button mat-icon-button (click)="signOut()">
+                  <mat-icon>power_settings_new</mat-icon>
+                </button>
+              </mat-list-item>
+
+
+
+
+        </mat-nav-list>
+      </mat-sidenav>
+      
+
+
+    <mat-sidenav-content [formGroup]="options">
+      <!-- <p><mat-checkbox formControlName="fixed">Fixed</mat-checkbox></p>
+      <p><mat-form-field>
+        <input matInput type="number" formControlName="top" placeholder="Top gap">
+      </mat-form-field></p>
+      <p><mat-form-field>
+        <input matInput type="number" formControlName="bottom" placeholder="Bottom gap">
+      </mat-form-field></p>
+      <p><button mat-button (click)="sidenav.toggle()">Toggle</button></p> -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <mat-toolbar class="example-footer">Alright reserve by TechWiz 2019</mat-toolbar>

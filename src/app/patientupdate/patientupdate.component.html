@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="onUpdate()">
+  <h1>{{data.firstName}} {{data.lastName}}</h1>
+  <mat-card [style.overflow]="'auto'" [style.height.px]="'auto'">
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>Weight</mat-label>
+      <input matInput type="text" [formControl]="weightControl" placeholder="Weight">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fullwidth">
+        <mat-label>Height</mat-label>
+        <input matInput type="text" [formControl]="heightControl" placeholder="Height">
+  
+      </mat-form-field>
+
+      
+
+        <mat-form-field>
+            <mat-label>Health Status</mat-label>
+            <mat-select [formControl]="healthstatusControl" [(value)]="healthStatus">
+              
+              <mat-option value="Normal">Normal</mat-option>
+              <mat-option value="Mal Nutrition">Mal Nutrition</mat-option>
+             
+            </mat-select>
+          </mat-form-field>
+
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="halfwidth">Update</button>
+    <button mat-flat-button mat-dialog-close class="halfwidth">Cancel</button>
+
+  </mat-card>
+</form>
