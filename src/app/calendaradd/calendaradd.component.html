@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="onAdd()">
+  <h1>Add Calendar</h1>
+  <mat-card [style.overflow]="'auto'" [style.height.px]="'auto'">
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>Title</mat-label>
+      <input matInput type="text" [formControl]="titleControl" placeholder="Title">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fullwidth">
+      <mat-label>Details</mat-label>
+      <textarea matInput type="textarea" [formControl]="detailsControl" placeholder="Details">
+      </textarea>
+    </mat-form-field>
+
+ 
+
+    <mat-form-field appearance="outline" class="fullwidth">
+        <mat-label>Date & Time</mat-label>
+        <input matInput  type="text" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [formControl]="timeControl" placeholder="Date & Time">
+        <owl-date-time #dt1></owl-date-time>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fullwidth">
+        <mat-label>Doctor</mat-label>
+        <input matInput type="text" [formControl]="doctorControl" placeholder="Doctors Name"/>
+        
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="fullwidth">
+        <mat-label>Slots</mat-label>
+        <input matInput type="number" [formControl]="slotControl" placeholder="How many slots"/>
+        
+      </mat-form-field>
+ 
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="halfwidth">Add</button>
+    <button mat-flat-button mat-dialog-close class="halfwidth">Cancel</button>
+
+  </mat-card>
+</form>

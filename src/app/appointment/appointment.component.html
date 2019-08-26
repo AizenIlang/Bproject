@@ -1,0 +1,95 @@
+<h2>Appointments</h2>
+
+<mat-form-field>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="referenceCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Reference Code </th>
+      <td mat-cell *matCellDef="let row"> {{row.referenceCode}} </td>
+    </ng-container>
+
+     <!-- Progress Column -->
+     <ng-container matColumnDef="guardianName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Guardian Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.guardianName}} </td>
+      </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="childName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Child Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.childName}} </td>
+    </ng-container>
+
+    
+    <!-- <ng-container matColumnDef="height">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Height (cm)</th>
+      <td mat-cell *matCellDef="let row"> {{row.height}} </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="operatedBy">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Checked-up by</th>
+      <td mat-cell *matCellDef="let row"> {{row.operatedBy}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="eventName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Event Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.eventName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="barangay">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Barangay </th>
+      <td mat-cell *matCellDef="let row"> {{row.barangay}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="appointDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Appointment Date </th>
+      <td mat-cell *matCellDef="let row"> {{row.appointDate}} </td>
+    </ng-container>
+   
+
+    <ng-container matColumnDef="actionsColumn">
+      <th mat-header-cell *matHeaderCellDef>
+        Tools
+      </th>
+
+
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary"
+          (click)="openUpdateDialog(element.childKey)">
+          <mat-icon>accessible_forward</mat-icon>
+        </button>
+        <button mat-raised-button
+          (click)="openEditDialog(element.firstName,element.lastName,element.age,element.parentsName,element.key)">
+          <mat-icon>brush</mat-icon>
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>

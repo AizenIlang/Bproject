@@ -15,7 +15,7 @@
 
       
 
-        <mat-form-field>
+        <!-- <mat-form-field>
             <mat-label>Health Status</mat-label>
             <mat-select [formControl]="healthstatusControl" [(value)]="healthStatus">
               
@@ -23,7 +23,27 @@
               <mat-option value="Mal Nutrition">Mal Nutrition</mat-option>
              
             </mat-select>
-          </mat-form-field>
+          </mat-form-field> -->
+
+            <mat-form-field>
+              <mat-label>Health History</mat-label>
+              <mat-select matNativeControl [formControl]="selectedFormControl" required (change)="doSomething($event)">
+                <mat-option value="None" >None</mat-option>
+                <mat-option value="Other" >Other</mat-option>
+                
+              </mat-select>
+            </mat-form-field>
+         
+          
+            <p>You selected: {{selectedFormControl.value}}</p>
+          
+          <ng-container *ngIf="selectedFormControl.value == 'Other'">
+            <mat-form-field appearance="outline" class="fullwidth">
+              <mat-label>Health History</mat-label>
+              <input matInput type="text" [formControl]="healthHistoryControl" placeholder="Specify Health History">
+        
+            </mat-form-field>
+          </ng-container>
 
 
     <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="halfwidth">Update</button>

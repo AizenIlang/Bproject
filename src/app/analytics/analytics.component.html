@@ -1,0 +1,18 @@
+<button mat-button (click)="onLogicalRegression()">Logical Regression</button>
+<button mat-button (click)="getTheR2()">Linear Regression</button>
+<div #analytics id="analytics">
+
+</div>
+
+
+<p>The R2 value is : {{valueR2}}</p>
+<p>The SStot value is : {{valueSStot}}</p>
+
+
+<p>The value of SSres is : {{valueSSres}}</p>  
+<p>The value of Mean is : {{valueMean}}</p>
+<ng-content>
+  
+
+</ng-content>
+

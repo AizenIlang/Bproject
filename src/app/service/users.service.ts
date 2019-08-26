@@ -3,14 +3,20 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import Swal from 'sweetalert2'
+import { AngularFirestore } from '@angular/fire/firestore';
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
+  theUser;
   isLoggedIn = false;
+  isAdmin = false;
   theEmail;
-  constructor(private afAuth : AngularFireAuth, private router : Router) { }
+  barangay;
+  constructor(private afAuth : AngularFireAuth,
+     private router : Router, 
+     private firestore : AngularFirestore) { }
 
   getUser(){
     if(this.getIsloggedIn){
@@ -18,12 +24,20 @@ export class UsersService {
     }
   }
 
+  getTotalUsers(){
+    return this.firestore.collection('Users').get();
+  }
+
+  getNewUser(){
+    return this.firestore.collection('NewUser').doc('NewUser').valueChanges();
+  }
+
   getIsloggedIn() : boolean{
     
     this.afAuth.authState.subscribe(res => {
       if (res && res.uid) {
         
-        this.router.navigate(['patient']);
+        this.router.navigate(['dashboard']);
         console.log('user is logged in :' + this.afAuth.auth.currentUser.email);
         this.theEmail = this.afAuth.auth.currentUser.email;
         Swal.fire("BMI Check", "Welcome back :" + this.afAuth.auth.currentUser.email, 'info');
@@ -47,6 +61,8 @@ export class UsersService {
       fullfilled=>{
         console.log("GotLoggedIn")
         this.isLoggedIn = true;
+        this.onAuthenticate(username);
+        
       },onreject =>{
         console.log("Rejected " + onreject);
         Swal.fire("Incorrect Log In","Please double check your credentials : " + onreject, 'warning');
@@ -54,8 +70,30 @@ export class UsersService {
     )
   }
 
+  onAuthenticate = (username) => {
+    this.authenticateUser(username).subscribe(res => {
+    this.theUser = res;
+    console.log(this.theUser);
+      this.isAdmin = this.theUser[0].admin;
+      this.barangay = this.theUser[0].barangay;
+      console.log("The user is an admin :" +this.isAdmin);
+      console.log("The user is an barangay is :" +this.barangay);
+    }
+    );
+
+
+  }
+
+  authenticateUser(username){
+   return this.firestore.collection('Users' , ref => ref.where('email','==',username )).valueChanges();
+  }
+
   logOut(){
     this.afAuth.auth.signOut();
     this.router.navigate(['']);
+  }
+
+  getParent(key){
+    return this.firestore.collection('Users').doc(key).get()
   }
 }

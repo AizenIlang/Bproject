@@ -1,0 +1,22 @@
+<button mat-button (click)="downloadReportPDF()"> <mat-icon>poll</mat-icon> Download Report</button>
+<button mat-button (click)="getAgePredictionUW()">By Age</button>
+<button mat-button (click)="byVolume()">By Volume</button>
+<mat-slide-toggle (change)="onToggle()" 
+  [checked]="check"
+  >
+  {{ToggleMode}}
+</mat-slide-toggle>
+
+
+<div>
+    <canvas #canvasBarangay id="canvasBarangay">
+
+    </canvas>
+</div>
+
+
+
+<app-reportage></app-reportage>
+
+
+

@@ -7,7 +7,7 @@
         </button>
       </ng-container>
 
-      <span>BMI Check</span>
+      <span>BMI Cheq</span>
       <span class="example-spacer"></span>
       <ng-container *ngIf="userService.isLoggedIn">
           {{userService.theEmail}}
@@ -25,6 +25,16 @@
       <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="example-sidenav" [fixedInViewport]="options.value.fixed"
         [fixedTopGap]="options.value.top" [fixedBottomGap]="options.value.bottom">
         <mat-nav-list>
+
+            <mat-list-item class="example-list-item">
+              
+                <a matLine routerLink="dashboard" class="example-list-item" >Dashboard</a>
+              
+                <button mat-icon-button >
+                  <mat-icon>dashboard</mat-icon>
+                </button>
+              </mat-list-item>
+
           <mat-list-item class="example-list-item">
               
             <a matLine routerLink="patient" class="example-list-item" >Patients</a>
@@ -54,16 +64,25 @@
 
               <mat-list-item class="example-list-item">
               
-                  <a matLine routerLink="patient" class="example-list-item">Appointments</a>
+                  <a matLine routerLink="appointment" class="example-list-item">Appointments</a>
                 
                   <button mat-icon-button >
                     <mat-icon>assignment_ind</mat-icon>
                   </button>
                 </mat-list-item>
 
+                <mat-list-item class="example-list-item">
+              
+                    <a matLine routerLink="calendar" class="example-list-item">Calendar</a>
+                  
+                    <button mat-icon-button >
+                      <mat-icon>assignment_ind</mat-icon>
+                    </button>
+                  </mat-list-item>
+
           <mat-list-item class="example-list-item">
               
-              <a matLine routerLink="patient" class="example-list-item">Reports</a>
+              <a matLine routerLink="report" class="example-list-item">Reports</a>
             
               <button mat-icon-button >
                 <mat-icon>assignment</mat-icon>
@@ -72,7 +91,7 @@
 
             <mat-list-item class="example-list-item">
               
-                <a matLine routerLink="patient" class="example-list-item">Analytics</a>
+                <a matLine routerLink="analytics" class="example-list-item">Analytics</a>
               
                 <button mat-icon-button >
                   <mat-icon>equalizer</mat-icon>

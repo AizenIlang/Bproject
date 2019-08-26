@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from 'src/environments/environment';
 import { LoginComponent } from './login/login.component';
 import { UsersService } from './service/users.service';
@@ -19,6 +20,19 @@ import { PatienteditComponent } from './patientedit/patientedit.component';
 import { EventComponent } from './event/event.component';
 import { EventaddComponent } from './eventadd/eventadd.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { AppointmentComponent } from './appointment/appointment.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { UploadComponent } from './upload/upload.component';
+import { CalendaraddComponent } from './calendaradd/calendaradd.component';
+import { ReportsComponent } from './reports/reports.component';
+import { LatestuserComponent } from './dashboard/latestuser/latestuser.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { TotalpatientsComponent } from './dashboard/totalpatients/totalpatients.component';
+import { TotalusersComponent } from './dashboard/totalusers/totalusers.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
+import { ReportageComponent } from './reportage/reportage.component';
+import { ReportbyageComponent } from './reportbyage/reportbyage.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +41,19 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     PatientupdateComponent,
     PatienteditComponent,
     EventComponent,
-    EventaddComponent
+    EventaddComponent,
+    AppointmentComponent,
+    CalendarComponent,
+    UploadComponent,
+    CalendaraddComponent,
+    ReportsComponent,
+    LatestuserComponent,
+    DashboardComponent,
+    TotalpatientsComponent,
+    TotalusersComponent,
+    AnalyticsComponent,
+    ReportageComponent,
+    ReportbyageComponent
   ],
   imports: [
     SweetAlert2Module.forRoot({
@@ -39,7 +65,11 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     RouterModule.forChild([
       {
         path : '',
-        component : LoginComponent
+        component : DashboardComponent
+      },
+      {
+        path : 'dashboard',
+        component : DashboardComponent
       },
 
       {
@@ -56,6 +86,18 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
       },{
         path : 'event',
         component : EventComponent
+      },{
+        path : 'calendar',
+        component : CalendarComponent
+      },{
+        path : 'appointment',
+        component : AppointmentComponent
+      },{
+        path : 'report',
+        component : ReportsComponent
+      },{
+        path : 'analytics',
+        component : AnalyticsComponent
       }
     ]),
     BrowserModule,
@@ -67,6 +109,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
+    
     OwlDateTimeModule,
     OwlNativeDateTimeModule
     
@@ -76,7 +120,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
   entryComponents: [
     PatientupdateComponent,
     PatienteditComponent,
-    EventaddComponent
+    EventaddComponent,
+    UploadComponent,
+    CalendaraddComponent
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

@@ -13,6 +13,33 @@ export class PatientService {
     return this.firestore.collection('Patients').valueChanges();
   }
 
+  getPatientListWithParent(){
+    
+     return this.firestore.collection('Patients').valueChanges();
+    
+   
+  }
+
+  getTotalPatient(){
+    return this.firestore.collection('Patients').get();
+  }
+
+  getPatientListPerBarangay(){
+    //Query Function where the component of filter will use
+  }
+
+  getAge(dateOfBirth : any): number{
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if(m < 0 || (m === 0 && today.getDate() < birthDate.getDate())){
+      age --;
+    }
+
+    return age;
+  }
+
   updatePatient(location ,PatientUpdate : PatientUpdate){
     return this.firestore.collection("Patients").doc(location).update(PatientUpdate).then(full =>{
       Swal.fire("File Patient Updated","File for patient is updated","success");
@@ -29,11 +56,32 @@ export class PatientService {
     })
   }
 
+  getHealthHistory(weight : number, height : number){
+    let BMI : number;
+
+    BMI = weight/((height/100)*2)
+
+    if(BMI < 18.5){
+      return "Under Weight";
+    }
+
+    if(BMI > 18.6){
+      if(BMI >= 25){
+        return "Over Weight";
+      }
+
+      return "Normal";
+
+    }
+    
+  }
+
 
 }
 
 export interface PatientUpdate{
-  healthstatus : string;
+  healthStatus : string;
+  healthHistory: string;
   weight : number;
   height : number;
 }
@@ -43,7 +91,7 @@ export interface PatientUpdateDialogInterface{
   lastName : string;
   height : number;
   weight : number;
-  healthstatus : string;
+  healthStatus : string;
   key : string;
 }
 

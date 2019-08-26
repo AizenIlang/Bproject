@@ -3,6 +3,7 @@ import { EventService } from '../service/event.service';
 import { MatTableDataSource, MatSort, MatPaginator, MatTable, MatDialog } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
 import { EventaddComponent } from '../eventadd/eventadd.component';
+import { UploadComponent } from '../upload/upload.component';
 
 @Component({
   selector: 'app-event',
@@ -48,11 +49,17 @@ export class EventComponent implements OnInit {
     this.dialog.open(EventaddComponent);
   }
 
+
+
   applyFilter(filterValue: string) {
 
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
 
+  }
+
+  deleteEvent(id){
+    this.eventService.deleteEvent(id);
   }
 
 }

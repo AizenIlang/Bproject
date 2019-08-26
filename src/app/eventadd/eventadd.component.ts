@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import { EventService, EventsInterface } from '../service/event.service';
+import { UploadComponent } from '../upload/upload.component';
+import { UploadService } from '../service/upload.service';
 
 @Component({
   selector: 'app-eventadd',
@@ -12,7 +14,8 @@ export class EventaddComponent implements OnInit {
 
   eventData;
   theTime;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: EventsInterface,private eventService : EventService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: EventsInterface,private eventService : EventService,
+  public dialog : MatDialog, public uploadService : UploadService) { }
 
   form = new FormGroup({
     titleControl : new FormControl('',[Validators.required]),
@@ -53,13 +56,19 @@ export class EventaddComponent implements OnInit {
   }
 
   changeData(){
+    console.log(this.timeControl.value + "This is the Time");
     this.eventData = {
       title : this.titleControl.value,
       details : this.detailsControl.value,
       image : this.imageControl.value,
       type : this.typeControl.value,
-      time : this.theTime
+      time : this.timeControl.value
     }
+    
+  }
+
+  openUploadComponent(){
+    this.dialog.open(UploadComponent);
   }
 
 }

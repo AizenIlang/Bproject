@@ -15,7 +15,7 @@ export class PatienteditComponent implements OnInit {
   form = new FormGroup({
     firstNameControl : new FormControl(this.data.firstName,[Validators.required]),
     lastNameControl : new FormControl(this.data.lastName,[Validators.required]),
-    ageControl : new FormControl(this.data.age,[Validators.required]),
+    
     parentsNameControl : new FormControl(this.data.parentsName,[Validators.required])
   });
 
@@ -49,7 +49,7 @@ export class PatienteditComponent implements OnInit {
     this.editData = {
       firstName : this.firstNameControl.value,
       lastName : this.lastNameControl.value,
-      age : this.ageControl.value,
+      
       parentsName : this.parentsNameControl.value
     }
   }

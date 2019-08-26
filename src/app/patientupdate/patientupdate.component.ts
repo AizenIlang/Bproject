@@ -14,12 +14,18 @@ export class PatientupdateComponent implements OnInit {
   passedData : PatientUpdateDialogInterface;
   healthStatus;
 
+  selected;
+
   form = new FormGroup({    
     weightControl : new FormControl(this.data.weight,[Validators.required]),
     heightControl : new FormControl(this.data.height,[Validators.required]),
-    healthstatusControl : new FormControl(this.data.healthstatus,[Validators.required])
+    healthHistoryControl : new FormControl("",),
+    selectedFormControl : new FormControl("")
   });
 
+  get selectedFormControl(){
+    return this.form.get('selectedFormControl');
+  }
   get weightControl(){
     return this.form.get('weightControl');
   }
@@ -28,9 +34,10 @@ export class PatientupdateComponent implements OnInit {
     return this.form.get('heightControl');
   }
 
-  get healthstatusControl(){
-    return this.form.get('healthstatusControl');
+  get healthHistoryControl(){
+    return this.form.get('healthHistoryControl');
   }
+
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: PatientUpdateDialogInterface, private patientService : PatientService) {
 
@@ -48,17 +55,25 @@ export class PatientupdateComponent implements OnInit {
   }
 
   changeData(){
-    
+    let hs = this.patientService.getHealthHistory(this.weightControl.value,this.heightControl.value)
+    console.log("Healt Status is :" + hs);
     this.updateData = {
-      healthstatus : this.healthstatusControl.value,
+      healthStatus : hs,
       height : this.heightControl.value,
-      weight : this.weightControl.value
+      weight : this.weightControl.value,
+      healthHistory : this.healthHistoryControl.value
     }
     // console.log("Updated the Health Status :" + this.updateData + " " + this.weightControl.value);
     // this.updateData.healthstatus = this.healthstatusControl.value;
     // this.updateData.height = this.heightControl.value;
     // this.updateData.weight = this.weightControl.value;
+    console.log("The Updated data:" + this.updateData.healthStatus);
     
+  }
+
+  doSomething(event){
+    console.log(event.value);
+    console.log(this.selected);
   }
 
 }
