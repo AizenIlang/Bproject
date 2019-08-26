@@ -1,5 +1,16 @@
 <button mat-button (click)="onLogicalRegression()">Logical Regression</button>
 <button mat-button (click)="getTheR2()">Linear Regression</button>
+
+<mat-form-field>
+        <!-- [formControl]="selectedFormControl" required (change)="doSomething($event)" -->
+    <mat-label>Prediction Mode</mat-label>
+    <mat-select matNativeControl >
+      <mat-option value="None" >Malnutrition Overtime</mat-option>
+      <mat-option value="Other" >Malnutrition Gender</mat-option>
+      <mat-option value="Other" >Malnutrion Age</mat-option>
+    </mat-select>
+</mat-form-field>
+
 <div #analytics id="analytics">
 
 </div>
