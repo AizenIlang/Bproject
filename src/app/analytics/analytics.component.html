@@ -1,20 +1,24 @@
 <button mat-button (click)="onLogicalRegression()">Logical Regression</button>
-<button mat-button (click)="getTheR2()">Linear Regression</button>
+<button mat-button (click)="onLineLinearRegression()">Linear Regression</button>
 
-<mat-form-field>
-        <!-- [formControl]="selectedFormControl" required (change)="doSomething($event)" -->
-    <mat-label>Prediction Mode</mat-label>
-    <mat-select matNativeControl >
-      <mat-option value="None" >Malnutrition Overtime</mat-option>
-      <mat-option value="Other" >Malnutrition Gender</mat-option>
-      <mat-option value="Other" >Malnutrion Age</mat-option>
-    </mat-select>
-</mat-form-field>
+
+        <mat-form-field>
+                <!-- [formControl]="selectedFormControl" required (change)="doSomething($event)" -->
+            <mat-label>Prediction Mode</mat-label>
+            <mat-select matNativeControl [formControl]="selectedFormControl" (change)="gotChanged($event)">
+              <mat-option value="overtime" >Malnutrition Overtime</mat-option>
+              <mat-option value="gender" >Malnutrition Gender</mat-option>
+              <mat-option value="age" >Malnutrion Age</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
 
 <div #analytics id="analytics">
 
 </div>
 
+<h3>Linear Regression Result</h3>
 
 <p>The R2 value is : {{valueR2}}</p>
 <p>The SStot value is : {{valueSStot}}</p>
@@ -22,8 +26,25 @@
 
 <p>The value of SSres is : {{valueSSres}}</p>  
 <p>The value of Mean is : {{valueMean}}</p>
-<ng-content>
+
+<form [formGroup]="form" (ngSubmit)="getCoefficient()">
+        <h2>Get the Coefficient</h2>
+        <mat-form-field appearance="outline" class="fullwidth">
+                <mat-label>Value of K</mat-label>
+                <input matInput type="text" [formControl]="valueofK" placeholder="Value of K">
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline" class="fullwidth">
+                <mat-label>Value of N</mat-label>
+                <input matInput type="text" [formControl]="valueofN" placeholder="Value of N">
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="halfwidth">Calculate</button>
+        
+</form>
+
+<p>The coefficient value is : {{valueCoefficient}}</p>
   
 
-</ng-content>
+
 

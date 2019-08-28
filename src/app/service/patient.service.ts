@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import Swal from 'sweetalert2';
+import * as d3 from "d3";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
+
+  bmi : Array<number> = [];
 
   constructor(private firestore : AngularFirestore) { }
 
@@ -15,14 +18,17 @@ export class PatientService {
 
   getPatientListWithParent(){
     
+   
      return this.firestore.collection('Patients').valueChanges();
     
    
   }
 
   getTotalPatient(){
+    
     return this.firestore.collection('Patients').get();
   }
+
 
   getPatientListPerBarangay(){
     //Query Function where the component of filter will use
@@ -74,6 +80,36 @@ export class PatientService {
 
     }
     
+  }
+
+  getAlllMalnutrition(){
+    this.bmi = new Array<number>();
+    this.bmi.push(0);
+    this.bmi.push(1);
+    this.bmi.push(4);
+    this.bmi.push(9);
+    this.bmi.push(16);
+    this.bmi.push(25);
+    this.bmi.push(36);
+    //RoundofMultiNormal values
+  
+    
+    return  Float64Array.from({length: 100}, d3.randomNormal());
+  }
+
+  getAllAgeMalnutrition(){
+    this.bmi = new Array<number>();
+    this.bmi.push(0);
+    this.bmi.push(1);
+    this.bmi.push(4);
+    this.bmi.push(9);
+    this.bmi.push(13);
+    this.bmi.push(15);
+    this.bmi.push(36);
+    let allAge = this.getAge("AllAge");
+    //RoundofMultiNormal values
+    this.getPatientListWithParent();
+    return Float64Array.from({length: 60},d3.randomNormal())
   }
 
 

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef,AfterViewInit, Renderer2, Afte
 import * as d3 from "d3";
 import { RshinyService } from '../service/rshiny.service';
 import html2canvas from 'html2canvas';
+import { Validators, FormControl, FormGroup } from '@angular/forms';
+import { PatientService } from '../service/patient.service';
 
 @Component({
   selector: 'app-analytics',
@@ -15,25 +17,37 @@ export class AnalyticsComponent implements OnInit,AfterViewInit,AfterContentInit
   valueSStot;
   valueSSres;
   valueMean;
-  constructor(private RshinyService : RshinyService, private renderer : Renderer2) { }
+  valueCoefficient;
+ 
+  constructor(private RshinyService : RshinyService, private renderer : Renderer2, private patientService : PatientService) { }
+
+  form = new FormGroup({
+    valueofK : new FormControl(0,[Validators.required]),
+    valueofN : new FormControl(0,[Validators.required])    
+  });
+
+  selectedFormControl =   new FormControl('age',[Validators.required]);   
+  get valueofK(){
+    return this.form.get('valueofK');
+  }
+
+  get valueofN(){
+    return this.form.get('valueofN');
+  }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(){
-    this.onLineLinearRegression();
+    // this.onLineLinearRegression();
   }
 
   ngAfterContentInit(){
     
   }
 
-  createPrediction(){
-    
-   
-    
-    
-  }
+
+  
 
   onLogicalRegression(){
     this.removeTheGraph();
@@ -42,12 +56,18 @@ export class AnalyticsComponent implements OnInit,AfterViewInit,AfterContentInit
 
 
   onLineLinearRegression = () => {
-    
+    let filteredMalnutritionData = this.patientService.getAllAgeMalnutrition();
     this.removeTheGraph();
-    let normalData = Float64Array.from({length: 100}, d3.randomNormal());
-  
+    if(this.selectedFormControl.value == "age"){
+      filteredMalnutritionData = this.patientService.getAllAgeMalnutrition();
+    }else if(this.selectedFormControl.value == "gender"){
+      filteredMalnutritionData = this.patientService.getAlllMalnutrition();
+    }
+    
+
+    this.getTheR2(this.patientService.bmi);
    
-    this.renderer.appendChild(this.analytics.nativeElement,this.RshinyService.qqnorm(normalData));
+    this.renderer.appendChild(this.analytics.nativeElement,this.RshinyService.qqnorm(filteredMalnutritionData));
     // this.renderer.appendChild(this.analytics.nativeElement,this.RshinyService.histogram(normalData));
     // this.RshinyService.MultiLine(53,23).then( t =>{
     //   this.renderer.appendChild(this.analytics.nativeElement,t);
@@ -63,15 +83,33 @@ export class AnalyticsComponent implements OnInit,AfterViewInit,AfterContentInit
   }
 
  
-  getTheR2(){
-    let result = this.RshinyService.getRSquared((x) => { return (6 * x) - 5 }, [0, 1, 4, 9, 16, 25, 36]);
+  getTheR2(theData){
+    let result = this.RshinyService.getRSquared((x) => { return (6 * x) - 5 }, theData);
     
     this.valueR2 =  result.rSquared;
     this.valueSSres = result.SSres;
     this.valueSStot = result.SStot;
     this.valueMean = result.meanValue;
 
-    this.onLineLinearRegression();
+   
+  }
+
+  getCoefficient(){
+    this.valueCoefficient = this.binomial(this.valueofN.value,this.valueofK.value);
+  }
+
+  binomial(n, k) {
+    console.log(n + 'N value');
+    console.log(k + 'K value');
+    
+   var coeff = 1;
+   for (var x = n-k+1; x <= n; x++) coeff *= x;
+   for (x = 1; x <= k; x++) coeff /= x;
+   return coeff;
+  }
+
+  gotChanged(event){
+    console.log(event.value);
   }
 
 }
