@@ -34,6 +34,11 @@
       <td mat-cell *matCellDef="let row"> {{row.slot}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="datestart">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Start time </th>
+      <td mat-cell *matCellDef="let row"> {{row.datestart.seconds * 1000 | date:'MM-dd-yyyy h:mm:ss a'}} </td>
+    </ng-container>
+
   <ng-container matColumnDef="time">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Date & Time </th>
         <td mat-cell *matCellDef="let row"> {{row.time.seconds * 1000 | date:'MM-dd-yyyy h:mm:ss a'}} </td>
@@ -49,8 +54,11 @@
 
       <td mat-cell *matCellDef="let element">
   
-        <button mat-raised-button>
+        <button mat-raised-button (click)="editCalendar(element.key,element.details,element.doctor,element.slot,element.datestart,element.time)">
           <mat-icon>brush</mat-icon>
+        </button>
+        <button mat-raised-button (click)="deleteCalendar(element.key)">
+          <mat-icon>highlight_off</mat-icon>
         </button>
 
       </td>

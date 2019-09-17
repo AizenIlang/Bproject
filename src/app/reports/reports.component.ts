@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas';
 import { Chart } from 'chart.js';
 import { ReportService } from '../service/report.service';
 import * as jsPDF from 'jspdf';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reports',
@@ -17,17 +18,56 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
   check = false;
   ToggleMode = "Over Weight";
   overWeightList = [];
+  barangayList = [];
+
+  date : any;
+
+  jan : string;
+  feb : string;
+  march : string;
+  april : string;
+  may : string;
+  jun : string;
+  jul : string;
+  aug : string;
+  sep : string;
+  oct : string;
+  nov : string;
+  dec : string;
+
+  //Report new
+  form = new FormGroup({      
+    
+    selectedFormControl : new FormControl("")
+  });
+
+  get selectedFormControl(){
+    return this.form.get('selectedFormControl');
+  }
+
   
   constructor(private reportService : ReportService) { }
 
   ngOnInit() {
-    
-    
+    this.date = new Date().getFullYear();
+    this.jan = "Jan " + this.date;
+    this.feb = "Feb " + this.date;
+    this.march = "March " + this.date;
+    this.april = "April " + this.date;
+    this.may = "May " + this.date;
+    this.jun = "Jun " + this.date;
+    this.jul = "Jul " + this.date;
+    this.aug = "Aug " + this.date;
+    this.sep = "Sep " + this.date;
+    this.oct = "Oct " + this.date;
+    this.nov = "Nov " + this.date;
+    this.dec = "Dec " + this.date;
   }
 
   ngAfterViewInit(){
     this.theContext = this.theCanvas.nativeElement.getContext('2d');
-    this.getOWList();
+    // this.getOWList();
+    // this.getBarangayList();
   }
 
   getOWList = () => {
@@ -41,6 +81,23 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
 
 
   }
+
+  getBarangayList = () => {
+    this.reportService.getAppointmentBarangay('Barangka Drive').subscribe( res=>{
+      this.barangayList = res;
+      this.loadDataBarangay();
+    });
+  }
+
+  getBarangayCall(){
+    let theString = this.selectedFormControl.value;
+    this.reportService.getAppointmentBarangay(theString).subscribe( res=>{
+      console.log("GetBarangay Call");
+      this.barangayList = res;
+      this.loadDataBarangay();
+    });
+  }
+  
 
   getUWList = () => {
     this.reportService.getUnderweight().subscribe(res => {
@@ -132,7 +189,7 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
        this.maxChecker(Malamig), this.maxChecker(Namayan), this.maxChecker(OldZaniga), 
        this.maxChecker(Plainview), 
        this.maxChecker(SanJose), 
-       this.maxChecker(Vergara)]);
+       this.maxChecker(Vergara)],"","");
   }
 
   maxChecker(theValue) : number{
@@ -203,8 +260,190 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
 
     }
 
-    this.generatePatientsReport([BarangkaDrive, BarangkaIbaba, BarangkaIlaya, BarangkaItaas, BuayangBato,
-       Hulo, MabiniJRizal, Malamig, Namayan, OldZaniga, Plainview, SanJose, Vergara]);
+    // this.generatePatientsReport([BarangkaDrive, BarangkaIbaba, BarangkaIlaya, BarangkaItaas, BuayangBato,
+    //    Hulo, MabiniJRizal, Malamig, Namayan, OldZaniga, Plainview, SanJose, Vergara]);
+  }
+
+  loadDataBarangay(){
+    var Jan = 0;
+    var Feb = 0;
+    var March = 0;
+    var April = 0;
+    var May = 0;
+    var Jun = 0;
+    var Jul = 0;
+    var Aug = 0;
+    var Sep = 0;
+    var Oct = 0;
+    var Nov = 0;
+    var Dec = 0;
+
+    var OJan = 0;
+    var OFeb = 0;
+    var OMarch = 0;
+    var OApril = 0;
+    var OMay = 0;
+    var OJun = 0;
+    var OJul = 0;
+    var OAug = 0;
+    var OSep = 0;
+    var OOct = 0;
+    var ONov = 0;
+    var ODec = 0;
+
+    var NJan = 0;
+    var NFeb = 0;
+    var NMarch = 0;
+    var NApril = 0;
+    var NMay = 0;
+    var NJun = 0;
+    var NJul = 0;
+    var NAug = 0;
+    var NSep = 0;
+    var NOct = 0;
+    var NNov = 0;
+    var NDec = 0;
+
+    for(let tempdata of this.barangayList){
+      let testDate = new Date(tempdata.scheduleDate);
+      if(tempdata.healthStatus == "Under Weight"){
+        switch(testDate.getMonth()){
+          case 0 :
+            Jan ++;
+            break;
+          case 1 :
+            Feb ++;
+            break;
+          case 2 :
+            March ++;
+            break;
+          case 3 :
+            April ++;
+          break;
+          case 4 :
+            May ++;
+            break;
+          case 5 :
+            Jun ++;
+            break;
+          case 6 :
+            Jul ++;
+            break;
+          case 7 :
+            Aug ++;
+            break;
+          case 8 :
+            Sep ++;
+            break;
+          case 9 :
+            Oct ++;
+            break;
+          case 10 :
+            Nov ++;
+            break;
+          case 11 :
+            Dec ++;
+            break;
+          default :
+          break;
+  
+        }
+      }
+     
+      if(tempdata.healthStatus == "Over Weight"){
+        switch(testDate.getMonth()){
+          case 0 :
+            OJan ++;
+            break;
+          case 1 :
+            OFeb ++;
+            break;
+          case 2 :
+            OMarch ++;
+            break;
+          case 3 :
+            OApril ++;
+          break;
+          case 4 :
+            OMay ++;
+            break;
+          case 5 :
+            OJun ++;
+            break;
+          case 6 :
+            OJul ++;
+            break;
+          case 7 :
+            OAug ++;
+            break;
+          case 8 :
+            OSep ++;
+            break;
+          case 9 :
+            OOct ++;
+            break;
+          case 10 :
+            ONov ++;
+            break;
+          case 11 :
+            ODec ++;
+            break;
+          default :
+          break;
+  
+        }
+      }
+
+      if(tempdata.healthStatus == "Normal"){
+        switch(testDate.getMonth()){
+          case 0 :
+            NJan ++;
+            break;
+          case 1 :
+            NFeb ++;
+            break;
+          case 2 :
+            NMarch ++;
+            break;
+          case 3 :
+            NApril ++;
+          break;
+          case 4 :
+            NMay ++;
+            break;
+          case 5 :
+            NJun ++;
+            break;
+          case 6 :
+            NJul ++;
+            break;
+          case 7 :
+            NAug ++;
+            break;
+          case 8 :
+            NSep ++;
+            break;
+          case 9 :
+            NOct ++;
+            break;
+          case 10 :
+            NNov ++;
+            break;
+          case 11 :
+            NDec ++;
+            break;
+          default :
+          break;
+  
+        }
+      }
+
+    }
+
+    this.generatePatientsReport([Jan,Feb,March,April,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec],
+      [OJan,OFeb,OMarch,OApril,OMay,OJun,OJul,OAug,OSep,OOct,ONov,ODec],
+      [NJan,NFeb,NMarch,NApril,NMay,NJun,NJul,NAug,NSep,NOct,NNov,NDec]);
+
   }
 
   onToggle() {
@@ -230,45 +469,56 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
     }
   }
 
-  generatePatientsReport(theData) {
+  generatePatientsReport(theData,theDataO,theDataN) {
     console.log(JSON.stringify(theData) + "The Barangay Count");
     this.chartBarangay = new Chart(
       'canvasBarangay',
       {
-        type: 'horizontalBar',
+        type: 'line',
+        
         data: {
           datasets: [{
             data: theData,
+            label: 'Under weight',
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(25, 20, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(15, 10, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
-              'rgba(2, 99, 132, 0.2)',
-              'rgba(54, 162, 235, 0.2)',
-              'rgba(2, 206, 86, 0.2)',
-              'rgba(75, 192, 192, 0.2)',
-              'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 1, 64, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
+              // 'rgba(54, 162, 235, 0.2)',
+              // 'rgba(25, 20, 86, 0.2)',
+              // 'rgba(75, 192, 192, 0.2)',
+              // 'rgba(15, 10, 255, 0.2)',
+              // 'rgba(255, 159, 64, 0.2)',
+              // 'rgba(2, 99, 132, 0.2)',
+              // 'rgba(54, 162, 235, 0.2)',
+              // 'rgba(2, 206, 86, 0.2)',
+              // 'rgba(75, 192, 192, 0.2)',
+              // 'rgba(153, 102, 255, 0.2)',
+              // 'rgba(255, 1, 64, 0.2)',
+              // 'rgba(255, 159, 64, 0.2)',
             ]
+          },{
+            data : theDataO,
+            label : 'Over weight',
+            backgroundColor : 'rgba(0, 255, 255, 1)'
+          },{
+            data : theDataN,
+            label : 'Normal',
+            backgroundColor : 'rgba(0, 0, 255, 0.2)'
           }],
+
+          
           labels: [
-            'Barangka Drive',
-            'Barangka Ibaba',
-            'Barangka Ilaya',
-            'Barangka Itaas',
-            'Buayang Bato',
-            'Hulo',
-            'Mabini-J. Rizal',
-            'Malamig',
-            'Namayan',
-            'Old Zaniga',
-            'Plainview',
-            'San Jose',
-            'Vergara'
+            this.jan,
+            this.feb,
+            this.march,
+            this.april,
+            this.may,
+            this.jun,
+            this.jul,
+            this.aug,
+            this.sep,
+            this.oct,
+            this.nov,
+            this.dec            
           ]
         }, scaleOverride: true,
         scaleStepWidth: 1,
@@ -282,7 +532,7 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
             display: true
           }],
           legend: {
-            display: false,
+            display: true,
             position: 'left',
           }
         }
@@ -326,6 +576,8 @@ export class ReportsComponent implements OnInit,AfterViewInit  {
   }
 
 
-  
+  onChange(){
+
+  }
 
 }

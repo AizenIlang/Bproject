@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { AppointmentService } from '../service/appointment.service';
 import { PatientupdateComponent } from '../patientupdate/patientupdate.component';
+import { AppointmentupdateComponent } from '../appointmentupdate/appointmentupdate.component';
 
 @Component({
   selector: 'app-appointment',
@@ -11,7 +12,7 @@ import { PatientupdateComponent } from '../patientupdate/patientupdate.component
 export class AppointmentComponent implements OnInit {
 
   constructor(private appointmentService : AppointmentService, public dialog : MatDialog) { }
-  displayedColumns: string[] = ['referenceCode', 'guardianName', 'childName','operatedBy', 'eventName','barangay', 'appointDate','actionsColumn'];
+  displayedColumns: string[] = ['referenceCode', 'guardianName', 'childName','operatedBy', 'eventName','barangay', 'appointDate','height','weight','actionsColumn'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -49,10 +50,11 @@ export class AppointmentComponent implements OnInit {
 
   }
 
-  openUpdateDialog(key){
-    this.dialog.open(PatientupdateComponent, {
+  openUpdateDialog(key,keyappoint){
+    this.dialog.open(AppointmentupdateComponent, {
       data: {     
-        key : key
+        key : key,
+        keyappoint : keyappoint
       }
     });
  

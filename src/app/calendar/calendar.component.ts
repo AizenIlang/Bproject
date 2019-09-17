@@ -3,6 +3,8 @@ import { CalendarService } from '../service/calendar.service';
 import { MatTableDataSource, MatSort, MatPaginator, MatTable, MatDialog } from '@angular/material';
 import { CalendaraddComponent } from '../calendaradd/calendaradd.component';
 import { UsersService } from '../service/users.service';
+import Swal from 'sweetalert2';
+import { CalendareditComponent } from '../calendaredit/calendaredit.component';
 
 @Component({
   selector: 'app-calendar',
@@ -12,7 +14,7 @@ import { UsersService } from '../service/users.service';
 export class CalendarComponent implements OnInit {
 
   constructor(private calendarService : CalendarService, public dialog : MatDialog, private userService : UsersService) { }
-  displayedColumns: string[] = ['details', 'doctor', 'barangay','slot', 'time', 'actionsColumn'];
+  displayedColumns: string[] = ['details', 'doctor', 'barangay','slot','datestart', 'time', 'actionsColumn'];
   dataSource: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -35,6 +37,24 @@ export class CalendarComponent implements OnInit {
 
   }
 
+  editCalendar(theKey,dt,dr,slt,st,datetime){
+    this.dialog.open(CalendareditComponent,{
+      data : {
+        'details' : dt,
+        'datestart' : st,
+        'key' : theKey,
+        'slot' : slt,
+        'time' : datetime,
+        'doctor' : dr
+        
+      }
+    })
+  }
+
+  onAdd(){
+    
+  }
+
   loadData() {
     this.dataSource = new MatTableDataSource(this.barangayList);
     this.dataSource.paginator = this.paginator;
@@ -52,5 +72,29 @@ export class CalendarComponent implements OnInit {
     this.dialog.open(CalendaraddComponent);
   }
 
-  
+  deleteCalendar(thekey){
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.calendarService.removeEvent(thekey);
+      } else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        Swal.fire(
+          'Cancelled',
+          'Your file is safe :)',
+          'error'
+        )
+      }
+    })
+  }
 }

@@ -20,12 +20,17 @@ export class CalendaraddComponent implements OnInit {
     titleControl : new FormControl('',[Validators.required]),
     detailsControl : new FormControl('',[Validators.required]),    
     timeControl: new FormControl('',[Validators.required]),
+    timeControl2 : new FormControl('',[Validators.required]),
     slotControl: new FormControl('',[Validators.required]),
     doctorControl: new FormControl('',[Validators.required])
   });
 
   get titleControl(){
     return this.form.get('titleControl');
+  }
+
+  get timeControl2(){
+    return this.form.get('timeControl2');
   }
 
   get detailsControl(){
@@ -60,6 +65,7 @@ export class CalendaraddComponent implements OnInit {
       details : this.detailsControl.value,      
       slot : this.slotControl.value,
       time : this.timeControl.value,
+      datestart : this.timeControl2.value,
       barangay : this.userService.barangay,
       doctor : this.doctorControl.value
     }

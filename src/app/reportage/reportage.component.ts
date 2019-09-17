@@ -21,6 +21,7 @@ export class ReportageComponent implements OnInit,AfterViewInit {
   chartBarangay = [];
   patientList = [];
 
+  
   constructor(private patientService : PatientService, private RshinyService : RshinyService, private renderer : Renderer2
   ) { }
 

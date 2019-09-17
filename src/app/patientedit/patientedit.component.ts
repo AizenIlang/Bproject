@@ -35,7 +35,7 @@ export class PatienteditComponent implements OnInit {
     return this.form.get('parentsNameControl');
 }
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: PatientEdit, private patientService : PatientService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private patientService : PatientService) { }
 
   ngOnInit() {
   }

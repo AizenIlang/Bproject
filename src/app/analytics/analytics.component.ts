@@ -40,6 +40,7 @@ export class AnalyticsComponent implements OnInit,AfterViewInit,AfterContentInit
 
   ngAfterViewInit(){
     // this.onLineLinearRegression();
+    console.log(this.RshinyService.getRSquared(10,30));
   }
 
   ngAfterContentInit(){

@@ -236,7 +236,7 @@ export class RshinyService {
 
     
     
-
+    
 
     const bands = K.map(() => new Float64Array(values.length).fill(NaN));
     for (let n = Math.min(N - 1, values.length); i < n; ++i) {
@@ -255,6 +255,33 @@ export class RshinyService {
       sum -= value0, sum2 -= value0 ** 2;
     }
     return bands;
+
+  }
+
+  binomial(n, k) {
+    console.log(n + 'N value');
+    console.log(k + 'K value');
+    
+   var coeff = 1;
+   for (var x = n-k+1; x <= n; x++) coeff *= x;
+   for (x = 1; x <= k; x++) coeff /= x;
+   return coeff;
+  }
+
+
+  bollr2(data){
+    let mean = data[0];
+    let SStot = data[1];
+    let SSres = data[2];
+    
+    if(mean <= SStot){
+      return this.binomial(SStot,mean);
+    }else{
+      return this.binomial(mean,SStot);
+    }
+
+    
+    
   }
 
 
@@ -330,6 +357,20 @@ export class RshinyService {
         .attr("d", line);
   
     return svg.node();
+  }
+  bollr3(data){
+    let mean = data[0];
+    let SStot = data[1] /2;
+    let SSres = data[2];
+    
+    if(mean <= SStot){
+      return this.binomial(SStot,mean);
+    }else{
+      return this.binomial(mean,SStot);
+    }
+
+    
+    
   }
 
   getRSquared(predict, data) {

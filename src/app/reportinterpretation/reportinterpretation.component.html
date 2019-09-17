@@ -1,0 +1,29 @@
+<div>
+  <h2>Prediction per Barangay</h2>
+  <form [formGroup]="form" (ngSubmit)="getBarangayCall()">
+    <mat-form-field>
+      <mat-label>Barangay</mat-label>
+      <mat-select matNativeControl [formControl]="selectedFormControl" required>
+        <mat-option value="All" >All</mat-option>
+        <mat-option value="Barangka Drive" >BarangkaDrive</mat-option>    
+        <mat-option value="Barangka Ibaba">BarangkaIbaba</mat-option> 
+        <mat-option value="Barangka Ilaya">Barangka Ilaya</mat-option> 
+        <mat-option value="Barangka Itaas">Barangka Itaas</mat-option> 
+        <mat-option value="Buayang Bato">Buayang Bato</mat-option> 
+        <mat-option value="Hulo">Hulo</mat-option> 
+        <mat-option value="MabiniJ Rizal">Mabini Rizal</mat-option> 
+        <mat-option value="Malamig">Malamig</mat-option> 
+        <mat-option value="Namayan">Namayan</mat-option> 
+        <mat-option value="Old Zaniga">Old Zaniga</mat-option> 
+        <mat-option value="Plainview">Plainview</mat-option> 
+        <mat-option value="San Jose">San Jose</mat-option> 
+        <mat-option value="Vergara">Vergara</mat-option> 
+        
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="halfwidth">Generate</button>
+    </form>
+    <canvas #canvasInterpretation id="canvasInterpretation">
+
+    </canvas>
+</div>

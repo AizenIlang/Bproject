@@ -17,9 +17,21 @@ export class CalendarService {
     return this.firebase.collection("Calendar").valueChanges();
   }
 
+  editEvent(key,calendarData){
+    this.firebase.collection("Calendar").doc(key).update(calendarData).then(full =>{
+      Swal.fire("Calendar Update", "Calendar has been updated",'success');
+    });
+  }
+
+  removeEvent(calendarData){
+    this.firebase.collection("Calendar").doc(calendarData).delete().then(full => {
+      Swal.fire("Calendar Delete", "Calendar has been deleted",'info');
+    });
+  }
   addEvent(calendarData : CalendarInterface){
     let thekey : any;
     thekey = this.firebase.createId();
+    calendarData.key = thekey;
     console.log(thekey);
     console.log(calendarData.barangay);
     this.firebase.collection("Calendar").doc(thekey).set(calendarData).then(full =>{
@@ -55,5 +67,7 @@ export interface CalendarInterface{
   slot : number;
   barangay : string;
   doctor : string;
+  key : string;
+  datestart : string;
 
 }

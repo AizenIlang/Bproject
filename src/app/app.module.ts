@@ -32,6 +32,10 @@ import { TotalusersComponent } from './dashboard/totalusers/totalusers.component
 import { AnalyticsComponent } from './analytics/analytics.component';
 import { ReportageComponent } from './reportage/reportage.component';
 import { ReportbyageComponent } from './reportbyage/reportbyage.component';
+import { AppointmentupdateComponent } from './appointmentupdate/appointmentupdate.component';
+import { ReportallbarangayComponent } from './reportallbarangay/reportallbarangay.component';
+import { ReportinterpretationComponent } from './reportinterpretation/reportinterpretation.component';
+import { CalendareditComponent } from './calendaredit/calendaredit.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { ReportbyageComponent } from './reportbyage/reportbyage.component';
     TotalusersComponent,
     AnalyticsComponent,
     ReportageComponent,
-    ReportbyageComponent
+    ReportbyageComponent,
+    AppointmentupdateComponent,
+    ReportallbarangayComponent,
+    ReportinterpretationComponent,
+    CalendareditComponent
   ],
   imports: [
     SweetAlert2Module.forRoot({
@@ -122,7 +130,9 @@ import { ReportbyageComponent } from './reportbyage/reportbyage.component';
     PatienteditComponent,
     EventaddComponent,
     UploadComponent,
-    CalendaraddComponent
+    CalendaraddComponent,
+    AppointmentupdateComponent,
+    CalendareditComponent
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

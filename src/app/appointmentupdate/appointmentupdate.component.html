@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onUpdate()">
-  
+  <h1>Appointment Update</h1>
   <mat-card [style.overflow]="'auto'" [style.height.px]="'auto'">
     <mat-form-field appearance="outline" class="fullwidth">
       <mat-label>Weight</mat-label>
@@ -14,6 +14,11 @@
       </mat-form-field>
 
       
+      <mat-form-field appearance="outline" class="fullwidth">
+        <mat-label>Checked-up by</mat-label>
+        <input matInput type="text" [formControl]="operatedbyControl" placeholder="Checked-up by">
+  
+      </mat-form-field>
 
         <!-- <mat-form-field>
             <mat-label>Health Status</mat-label>
