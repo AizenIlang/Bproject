@@ -28,7 +28,7 @@
     "d3": "^5.11.0",
     "firebase": "^6.2.0",
     "html2canvas": "^1.0.0-rc.3",
-    "jspdf": "^1.5.3",
+    "jspdf": "^2.5.1",
     "ng-material-datetimepicker": "^1.18.5",
     "ng-pick-datetime": "^7.0.0",
     "rxjs": "~6.4.0",
